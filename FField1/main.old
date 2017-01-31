@@ -1,0 +1,259 @@
+#include <openbabel/obconversion.h>
+#include <openbabel/mol.h>
+#include <openbabel/shared_ptr.h>
+#include <openbabel/forcefield.h>
+#include <openbabel/residue.h>
+#include <openbabel/chains.h>
+#include <openbabel/rotor.h>
+#include <openbabel/rotamer.h>
+#include <openbabel/generic.h>
+
+//#include <openbabel/depict/painter.h>
+#include <string.h>
+#include <sstream>
+
+#include <iostream>
+
+#include "glm/vec3.hpp"
+#include "glm/gtc/quaternion.hpp"
+//#include "glm/ext.hpp"
+#include "glm/gtx/string_cast.hpp"
+#include "glm/gtx/normal.hpp"
+
+#define TORF(X) (X ? "X" : " ")
+#define TORFC(X) (X ? 'T' : 'F')
+
+using namespace OpenBabel;
+using namespace std;
+
+OBMol *GetMol(const std::string &filename)
+{
+	OBMol *mol(new OBMol);
+	OBConversion conv;
+	OBFormat *format = conv.FormatFromExt(filename.c_str());
+	if (!format || !conv.SetInFormat(format)) {
+		std::cout << "Could not find input format for file " << filename << std::endl;
+		return mol;
+	}
+	conv.SetOutFormat("pdb");
+	std::ifstream ifs(filename.c_str());
+	if (!ifs) {
+		std::cout << "Could not open " << filename << " for reading." << std::endl;
+		return mol;
+	}
+	if (!conv.Read(mol, &ifs)) {
+		std::cout << "Could not read molecule from file " << filename << std::endl;
+		return mol;
+	}
+	std::ostream *ofs = new std::ofstream("output.pdb");
+	OBBitVec n;
+	OBResidueData rdata;
+	OBChainsParser cparse;
+	//rdata.AssignBonds(*mol,n);
+	//cparse.PerceiveChains(*mol);
+	mol->AddHydrogens();
+	mol->ConnectTheDots();
+	conv.Write(mol,ofs);
+	return mol;
+}
+
+void set_vec3(OBAtom *a, glm::vec3 p) {
+	double *coords[] = {(double *)&p.x,(double *)&p.y,(double *)&p.z};
+	a->SetCoordPtr(coords);
+//	double *c = a->GetCoordinate();
+//	return glm::vec3(c[0],c[1],c[2]);
+}
+
+glm::vec3 get_vec3(OBAtom *a) {
+	double *c = a->GetCoordinate();
+	return glm::vec3(c[0],c[1],c[2]);
+}
+
+glm::vec3 get_vec3(double *coords) {
+//	double *c = a->GetCoordinate();
+	glm::vec3 ret;
+	ret.x = coords[0];
+	ret.y = coords[1];
+	ret.z = coords[2];
+	return ret;
+}
+
+glm::quat fromtwovectors(glm::vec3 u, glm::vec3 v)
+{
+	using namespace glm;
+//    float norm_u_norm_v = sqrt(dot(u, u) * dot(v, v));
+    float real_part = 1.0f + dot(u, v);
+    vec3 w;
+
+//    if (real_part < 1.e-6f * 1.0f)
+//    {
+//        /* If u and v are exactly opposite, rotate 180 degrees
+//         * around an arbitrary orthogonal axis. Axis normalisation
+//         * can happen later, when we normalise the quaternion. */
+//        real_part = 0.0f;
+//        w = abs(u.x) > abs(u.z) ? vec3(-u.y, u.x, 0.f)
+//                                : vec3(0.f, -u.z, u.y);
+//    }
+//    else
+//    {
+        /* Otherwise, build quaternion the standard way. */
+        w = cross(u, v);
+//    }
+
+    return normalize(quat(real_part, w.x, w.y, w.z));
+}
+
+
+int main(int argc, char **argv)
+{
+	if (argc < 2) {
+		std::cout << "Usage: " << argv[0] << " <filename>" << std::endl;
+		return 1;
+	}
+	OBMol *mol = GetMol(argv[1]);
+	OBAtom *lastCb = nullptr;
+	OBAtom *lastCa = nullptr;
+	OBMol newmol;
+	newmol.Clear();
+	newmol.SetCoordinates(mol->GetCoordinates());
+	//OBBond *c_n, *n_c, *c_c;
+	OBAtom *N, *Ca, *Cb;
+	int n,ca,cb,lastcb = 0;
+	OBConversion convert;
+	std::ostream *pdb;
+	convert.SetOutFormat("pdb");
+	
+
+	std::cout << "Made Molecule" << std::endl;
+	std::vector<glm::vec3> gvec;
+	std::vector<glm::vec3> norms;
+//	glm::vec3 *gv;
+//	double *coords;
+	glm::vec3 nml;
+//	OBAtom *natom;
+	glm::vec3 a,b;
+	std::vector<std::pair<glm::quat,OBAtom *>> q_and_a;
+	std::vector<glm::quat> quats;
+	glm::quat lastq;
+	quats.push_back(lastq);
+//	quats.push_back(
+	//OBBond *newbond;
+	for(OBResidueIter res_iter(mol);res_iter;res_iter++) {
+//		quats.push_back(lastq);
+//		cout << ".";
+		std::vector<OBAtom *> atoms = res_iter->GetAtoms();
+		vector<OBAtom *>::iterator a_iter = res_iter->BeginAtoms();
+		
+		N = *a_iter++;
+		Ca = *a_iter++;
+		Cb = *a_iter;
+		gvec.push_back(get_vec3(N));
+		gvec.push_back(get_vec3(Ca));
+		gvec.push_back(get_vec3(Cb));
+		newmol.AddAtom(*N);
+		n = newmol.NumAtoms();
+		newmol.AddAtom(*Ca);
+		ca = newmol.NumAtoms();
+		newmol.AddAtom(*Cb);
+		cb = newmol.NumAtoms();
+		//n,ca,cb are now set to the Idx of their respective atoms in newmol. Maybe.
+		
+		if(lastCa != nullptr) {
+			nml = glm::triangleNormal(get_vec3(lastCa),get_vec3(lastCb),get_vec3(N));
+			norms.push_back(nml);
+			std::pair<glm::quat,OBAtom *> newpair;
+			newpair.first = fromtwovectors(*(norms.end()-1),*(norms.end()-2));
+			newpair.second = N;
+			q_and_a.push_back(newpair);
+			quats.push_back(fromtwovectors(*(norms.end()-1),*(norms.end()-2)));
+//			natom = newmol.NewAtom();
+//			natom->SetAtomicNum(1); //H
+//			natom->SetVector(vector3(nml.x,nml.y,nml.z) + lastCb->GetVector());
+//			newmol.AddBond(lastcb,natom->GetIdx(),1);
+		}
+		if(lastcb != 0) {
+			newmol.AddBond(lastcb,n,2);
+			
+			nml = glm::triangleNormal(get_vec3(lastCb),get_vec3(N),get_vec3(Ca));
+			norms.push_back(nml);
+			quats.push_back(fromtwovectors(*(norms.end()-1),*(norms.end()-2)));
+//			natom = newmol.NewAtom();
+//			natom->SetAtomicNum(1); //H
+//			natom->SetVector(vector3(nml.x,nml.y,nml.z) + N->GetVector());
+//			newmol.AddBond(n,natom->GetIdx(),1);
+		}
+		newmol.AddBond(n,ca,1);
+		nml = glm::triangleNormal(get_vec3(N),get_vec3(Ca),get_vec3(Cb));
+		norms.push_back(nml);
+		quats.push_back(fromtwovectors(*(norms.end()-1),*(norms.end()-2)));
+//		natom = newmol.NewAtom();
+//		natom->SetAtomicNum(1); //H
+//		natom->SetVector(vector3(nml.x,nml.y,nml.z) + Ca->GetVector());
+//		newmol.AddBond(ca,natom->GetIdx(),1);
+
+//		norms.push_back(
+//			nml = glm::cross(
+//				get_vec3(N),
+//				get_vec3(Ca)
+//			)
+//		);
+		newmol.AddBond(ca,cb,1);
+//		norms.push_back(
+//			nml = glm::cross(
+//				get_vec3(Ca),
+//				get_vec3(Cb)
+//			)
+//		);
+		lastCb = Cb;
+		lastCa = Ca;
+		lastcb = cb;
+		
+	}
+//	std::vector<glm::quat> quats;
+//	std::vector<glm::vec3> norms;
+//	glm::vec3 a,b,c,d;
+//	
+//	newmol.End
+	OBAtomIterator at;
+	int catom;
+	//OBAtomIterator *start_atom;
+	std::vector<glm::quat>::iterator vi;
+	int step = 0;
+	std::ostringstream stepf;
+	for(at=newmol.EndAtoms()-1, vi = quats.end();vi >= quats.begin();vi--,at--) {
+		stepf << "unfold_step_" << step++ << ".pdn";
+		pdb = new std::ofstream(stepf.str());
+		cout <<  (*at)->GetType() << "  " << glm::to_string(*vi) << std::endl;
+		for(catom = 0;at + catom!=newmol.EndAtoms();catom++) {
+			cout << "rotating atom" << endl;
+			//set_vec3(*start_atom,*vi * get_vec3(*start_atom));
+			glm::vec3 atom_vec = get_vec3(*(&at + catom));
+			cout << "Atom's vector\n\t" << to_string(atom_vec);
+			glm::vec3 newvec = *vi * get_vec3(*(at + catom));
+			cout << "Got rotation " << to_string(newvec) << endl;
+			cout <<  "\t" << (*(at + catom))->GetType();
+			cout << "  " << glm::to_string(newvec) << std::endl;
+		}
+		convert.Write(&newmol,pdb);
+		((ofstream *)pdb)->close();
+
+//		a = *(vi - 1);
+//		b = *vi;
+//		c = *(vi + 1);
+//		d = glm::cross(b-a,c-b);
+////		natom = newmol.NewAtom();
+////		natom->SetType("H");
+////		newmol.
+//		cout << glm::to_string(*vi) << std::endl;
+//		OBAtom atom = *at;
+//		atom.GetType();
+		
+	}
+	newmol.EndModify(true);
+	pdb = new std::ofstream("backbone.pdb");
+	convert.Write(&newmol,pdb);
+	((ofstream *)pdb)->close();
+	free(mol);
+	
+	return 0;
+}

@@ -1,0 +1,22 @@
+data_ASN
+#
+_pdbx_nmr_ensemble.conformers_submitted_total_number	2
+loop_
+_atom_site.label_comp_id
+_atom_site.id
+_atom_site.type_symbol
+_atom_site.Cartn_x
+_atom_site.Cartn_y
+_atom_site.Cartn_z
+_atom_site.pdbx_PDB_model_num
+ASN CA   C 0 0 0 1
+ASN CB   C 1.01 -0.88 0.741 1
+ASN CG   C 2.408 -0.489 0.338 1
+ASN OD1  O 2.58 0.405 -0.464 1
+ASN ND2  N 3.467 -1.133 0.867 1
+ASN HA   H 0.178 -0.069 -1.073 1
+ASN HB2  H 0.89 -0.743 1.816 1
+ASN HB3  H 0.837 -1.925 0.486 1
+ASN HD21 H 3.329 -1.848 1.508 1
+ASN HD22 H 4.367 -0.882 0.608 1
+ASN HD22 H 4.367 -0.882 0.608 1

@@ -1,0 +1,20 @@
+data_ASX
+#
+_pdbx_nmr_ensemble.conformers_submitted_total_number	2
+loop_
+_atom_site.label_comp_id
+_atom_site.id
+_atom_site.type_symbol
+_atom_site.Cartn_x
+_atom_site.Cartn_y
+_atom_site.Cartn_z
+_atom_site.pdbx_PDB_model_num
+ASX CA   C 0 0 0 1
+ASX CB   C 0.89 -0.805 0.949 1
+ASX CG   C 2.317 -0.747 0.469 1
+ASX XD1  X 2.693 0.098 -0.888 1
+ASX XD2  X 3.496 -1.528 1.303 1
+ASX HA   H 0.131 -0.365 -1.019 1
+ASX HB1  H 0.827 -0.383 1.952 1
+ASX HB2  H 0.555 -1.842 0.969 1
+ASX HB2  H 0.555 -1.842 0.969 1

@@ -1,0 +1,27 @@
+data_LEU
+#
+_pdbx_nmr_ensemble.conformers_submitted_total_number	2
+loop_
+_atom_site.label_comp_id
+_atom_site.id
+_atom_site.type_symbol
+_atom_site.Cartn_x
+_atom_site.Cartn_y
+_atom_site.Cartn_z
+_atom_site.pdbx_PDB_model_num
+LEU CA   C 0 0 0 1
+LEU CB   C 0.426 -1.024 1.052 1
+LEU CG   C 0.035 -0.52 2.443 1
+LEU CD1  C 0.461 -1.545 3.496 1
+LEU CD2  C 0.731 0.813 2.717 1
+LEU HA   H 0.496 0.95 0.196 1
+LEU HB2  H 1.506 -1.163 1.007 1
+LEU HB3  H -0.07 -1.975 0.857 1
+LEU HG   H -1.045 -0.383 2.488 1
+LEU HD11 H 0.183 -1.186 4.486 1
+LEU HD12 H -0.035 -2.496 3.3 1
+LEU HD13 H 1.541 -1.684 3.451 1
+LEU HD21 H 1.811 0.674 2.672 1
+LEU HD22 H 0.427 1.543 1.967 1
+LEU HD23 H 0.452 1.172 3.708 1
+LEU HD23 H 0.452 1.172 3.708 1

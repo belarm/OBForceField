@@ -1,0 +1,232 @@
+
+
+
+
+
+
+
+
+
+//	std::vector<OBMol> frags = mol->Separate();
+//	std::string fname;
+//	for(unsigned int i = 0;i<frags.size();i++) {
+//		fname = "fragment_" + to_string(i) + ".pdb";
+//		pdb = new std::ofstream(fname);
+//		convert.Write(&frags[i],pdb);
+//	}
+
+//	
+//	for(OBMolAtomIter atom_iter(newmol);atom_iter;atom_iter++) {
+//		vector3 pos = atom_iter->GetVector();
+//		pos.SetY(0.0);
+//		atom_iter->SetVector(pos);
+//	}
+//	OBAtom *a, *b, *c, *d;
+//	FOR_TORSIONS_OF_MOL(t,newmol) {
+//		a = newmol.GetAtom((*t)[0]+1);
+//		b = newmol.GetAtom((*t)[1]+1);
+//		c = newmol.GetAtom((*t)[2]+1);
+//		d = newmol.GetAtom((*t)[3]+1);
+//		newmol.SetTorsion(a,b,c,d,1);
+//	}
+//	newmol.EndModify(true);
+	
+	
+//	OBRotamerList rotamers;
+//	OBRotorList rl;
+//	rl.Setup(newmol);
+//	vector<int> rotorKey(rl.Size()+1,0);
+//	OBRotorIterator ri;
+//	OBRotor *rotor = rl.BeginRotor(ri);
+//	vector<double> torsion_vals;
+//	vector<int> dihed_atoms;
+//	vector<double> angles;
+//	angles.push_back(0.0);
+//	angles.push_back(3.1415);
+//	int numCoords = newmol.NumAtoms() * 3;
+//	double *coords1 = new double[numCoords];
+//	double *molcoords = newmol.GetCoordinates();
+//	for(unsigned int i = 0; i < numCoords; i++) {
+//		coords1[i] = molcoords[i];
+//	}
+//	for(unsigned int i = 1; i< rl.Size()+1; i++, rotor = rl.NextRotor(ri)) {
+//		//torsion_vals = rotor->GetTorsionValues();
+//		//rotor->Precompute(newmol.GetCoordinates());
+//		//rotor->Set(newmol.GetCoordinates(),0);
+//		rotor->SetTorsionValues(angles);
+//		rotor->Precompute(coords1);
+//		rotor->Set(coords1,0);
+//		cout << "Rotor " << i << endl;
+////		for(int j = 0;j<12;j++) {
+////			cout << '\t' << torsion_vals[j] << endl;
+////		}
+////		dihed_atoms = rotor->GetDihedralAtoms();
+////		for(int j = 0; j<4;j++) {
+////			cout << "\tAtom " << dihed_atoms[j] << endl;
+////		}
+//	}
+//	newmol.SetConformer(0);
+//	newmol.EndModify();
+
+
+
+
+	
+//	std::vector<double *> angles(rl.Size()+1,0);
+//	newmol.SetConformers(angles); // make primary structure? :-)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//newmol.EndModify();
+
+//	double angle;
+//	//std::pair<OBAtom *, OBAtom *> bc;
+//	OBAtom  *a,*b,*c,*d;
+//	OBBond *bc;
+//	for(OpenBabel::OBMolTorsionIter tor_iter(newmol);tor_iter;++tor_iter) {
+//		//OBTorsion torsion = newmol->GetTorsion((*tor_iter)[0]+1,(*tor_iter)[1]+1,(*tor_iter)[2]+1,(*tor_iter)[3]+1);
+//		//a = newmol->GetAtom(torsion[0] + 1);
+//		a = newmol.GetAtom((*tor_iter)[0]+1);
+//		b = newmol.GetAtom((*tor_iter)[1]+1);
+//		c = newmol.GetAtom((*tor_iter)[2]+1);
+//		d = newmol.GetAtom((*tor_iter)[3]+1);
+//		bc = newmol.GetBond(b,c);
+//		if(isPhi(b,c))
+//			cout << "Phi: \t";
+//		if(isPsi(b,c))
+//			cout << "Psi: \t";
+//		if(isOmega(b,c))
+//			cout << "Omega: \t";
+////		b = (*tor_iter)[0]+1;
+////		c = (*tor_iter)[0]+1;
+////		d = (*tor_iter)[0]+1;
+//
+//		angle = newmol.GetTorsion(a,b,c,d);
+//		cout /*<< printBond(*bc)
+//			 << ": "*/
+//			 << angle << endl;
+//		newmol.SetTorsion(a,b,c,d,0);
+//		
+//	}
+
+
+	
+//	OBRotorList rlist;
+//	rlist.Setup(*mol);
+//	OBRotorIterator rlistiter;
+//	
+//	for(rlistiter=rlist.BeginRotors();rlistiter!=rlist.EndRotors();rlistiter++){
+//		OBRotor *rot = *rlistiter;
+////		rot.GetBond()
+//		std::cout << "R " << printBond(*(rot->GetBond())) << "\t" << rot->CalcTorsion(mol->GetCoordinates()) << std::endl;
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+//	
+//	FOR_ATOMS_OF_MOL(aiter,*mol) {
+////		OBAtom *a = aiter;
+////		a->GetType()
+//		std::cout << aiter->GetResidue(true)->GetName() << ":" << aiter->GetType() << std::endl;
+//		if(!strncmp(aiter->GetType(),"Nam",3)) {
+//			FOR_BONDS_OF_ATOM(biter,*aiter) {
+//				//OBBond *b = biter;
+//				std::cout << "\t" << printBond(*biter) << std::endl;
+////				std::cout << "\t\t" << biter->GetBondOrder() << "   " << biter->GetEndAtom()->GetResidue()->GetName() << ":" << biter->GetEndAtom()->GetType() << std::endl;
+//			}
+//		}
+//	}
+//	std::cout << "Molecule has " << mol->NumRotors() << " rotors" << std::endl;
+	
+	
+	
+//	OBResidueIter riter(*mol);
+//	OBMol m = *mol;
+//	for(;riter;riter++)
+//	{
+//		OBResidue res = *riter;
+//		
+//		std::cout   << riter->GetName() << "\t" << riter->DataSize() << std::endl;
+//		OBMolTorsionIter ti(*mol);
+//		OBAtom *a,*b,*c,*d;
+//		for(;ti;++ti) {
+////			OBMol m = *mol
+//			a = mol->GetAtom((*ti)[0]+1);
+//			b = mol->GetAtom((*ti)[1]+1);
+//			c = mol->GetAtom((*ti)[2]+1);
+//			d = mol->GetAtom((*ti)[3]+1);
+//			std::cout << a->GetResidue()->GetAtomID(a) << "-"
+//					  << b->GetResidue()->GetAtomID(b) << "-"
+//					  << c->GetResidue()->GetAtomID(c) << "-"
+//					  << d->GetResidue()->GetAtomID(d) << ":\t"
+//					  << mol->GetTorsion(a,b,c,d) << std::endl;
+////			std::cout << 
+////					  << mol->GetResidue()->GetAtomID(b) << "-"
+////					  << mol->GetResidue()->GetAtomID(c) << "-"
+////					  << mol->GetResidue()->GetAtomID(d) << ":\t"
+////					  << mol->GetTorsion(a,b,c,d) << std::endl;
+//		}
+//
+//	}
+
+//std::string printBond(OBBond bnd) {
+//	OBAtom *a = bnd.GetBeginAtom();
+//	OBAtom *b = bnd.GetEndAtom();
+//	return a->GetResidue()->GetName() + ":" 
+//		+ OpenBabel::toString(a->GetType()) + "--" 
+//		+ b->GetResidue()->GetName() + ":"
+//		+ OpenBabel::toString(b->GetType()) + " "
+//		+ (bnd.IsRotor() ? "Rotor" : "") 
+//		+ (bnd.IsPrimaryAmide() ? "Primary" : "")
+//		+ (bnd.IsAmide() ? "Amide" : "")
+//		+ (bnd.IsCarbonyl() ? "Carbonyl" : "")
+//		+ " Order: " + OpenBabel::toString(bnd.GetBondOrder());
+//		
+//	
+//}
+//
+//std::string dumpAtom(OBAtom *a) {
+//	return a->GetType();
+//}
+//
+//std::string dumpAtom(OBAtom a) {
+//	//using namespace std;
+//	std::string ret = a.GetResidue()->GetName() + ":" + a.GetType();
+//	
+//	//ret += "\t" + OpenBabel::toString(a.GetVector());
+//	ret.insert(ret.length(),10-ret.length(),' ');
+//	ret.insert(ret.length(),OpenBabel::toString(a.GetVector()));
+//	return ret;
+//}
+//
+//bool isPhi(OBAtom *a, OBAtom *b) {
+//	return a->IsNitrogen() && b->IsCarbon();
+//}
+//
+//bool isPsi(OBAtom *a, OBAtom *b) {
+//	return a->IsCarbon() && b->IsCarbon();
+//}
+//
+//bool isOmega(OBAtom *a, OBAtom *b) {
+//	return a->IsCarbon() && b->IsNitrogen();
+//}
+//
+//
+//
+//
+//
+//
+//
+//

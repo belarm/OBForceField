@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="OBForceField" Database="">
+  <Project Name="mol_to_vec3" Path="pdb2vec3/pdb2vec3.project" Active="No"/>
+  <Project Name="m2v3" Path="m2v3/m2v3.project" Active="No"/>
+  <Project Name="FField1" Path="FField1/FField1.project" Active="No"/>
+  <Project Name="MoleculeConversion" Path="MoleculeConversion/MoleculeConversion.project" Active="No"/>
+  <Project Name="FromCoords" Path="FromCoords/FromCoords.project" Active="No"/>
+  <Project Name="MolLib" Path="MolLib/MolLib.project" Active="No"/>
+  <Project Name="BuildMol" Path="BuildMol/BuildMol.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Environment/>
+      <Project Name="mol_to_vec3" ConfigName="Debug"/>
+      <Project Name="m2v3" ConfigName="Debug"/>
+      <Project Name="FField1" ConfigName="Debug"/>
+      <Project Name="MoleculeConversion" ConfigName="Debug"/>
+      <Project Name="FromCoords" ConfigName="Debug"/>
+      <Project Name="MolLib" ConfigName="Debug"/>
+      <Project Name="BuildMol" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Environment/>
+      <Project Name="mol_to_vec3" ConfigName="Release"/>
+      <Project Name="m2v3" ConfigName="Release"/>
+      <Project Name="FField1" ConfigName="Release"/>
+      <Project Name="MoleculeConversion" ConfigName="Release"/>
+      <Project Name="FromCoords" ConfigName="Release"/>
+      <Project Name="MolLib" ConfigName="Release"/>
+      <Project Name="BuildMol" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>

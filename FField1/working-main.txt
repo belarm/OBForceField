@@ -1,0 +1,111 @@
+#include "getmol.h"
+#include "util.h"
+#include <math.h>
+#include <glm/gtx/vector_angle.hpp>
+#include <glm/gtx/normalize_dot.hpp>
+#include <glm/gtx/string_cast.hpp>
+#include <glm/gtx/normal.hpp>
+//#include <openbabel/obconversion.h>
+
+using namespace OpenBabel;
+using namespace std;
+using namespace glm;
+int main(int argc, char *argv[]) {
+	if (argc < 2) {
+		std::cout << "Usage: " << argv[0] << " <filename>" << std::endl;
+		return 1;
+	}
+	OBMol *mol = GetMol(argv[1]);
+	//We've got the positions. Let's get alpha, theta, and delta
+	//We could totally pull these from the model...or the PDB file.
+	//Maybe check which gives the best accuracy?
+	
+//	OBAtom *N, *Ca, Cb;
+	OBMol newmol;
+	newmol.Clear();
+	int lastCb = -1;
+	for(OBResidueIter res_iter(mol);res_iter;res_iter++) {
+		OBResidueAtomIter ater(*res_iter);
+			newmol.AddAtom(*ater++);
+			newmol.AddAtom(*ater++);
+			newmol.AddAtom(*ater);
+			lastCb = newmol.NumAtoms();
+			newmol.AddBond(lastCb-1,lastCb,1);
+			newmol.AddBond(lastCb-2,lastCb-1,1);
+			if(lastCb > 3)
+				newmol.AddBond(lastCb-3,lastCb-2,2);
+	}
+	cout << newmol.NumAtoms() << endl;
+	newmol.EndModify(true);
+	
+//	vector<double> d,a,t; //delta, alpha, theta
+	//1st atom is at 0,0,0
+//	d.push_back(0);
+//	a.push_back(0);
+//	t.push_back(0);
+//	for(OBAtomIterator ai = newmol.BeginAtoms()+1;ai;++ai) {
+//		
+//	}
+//	cout << sizeof(vec3) << endl << sizeof(dvec3) << endl;
+	vector3 shift = -newmol.GetAtomById(0)->GetVector();
+	OBMolAtomIter ait(newmol);
+	for(;ait;++ait) {
+		ait->SetVector(ait->GetVector() + shift);
+	}
+	newmol.EndModify();
+	std::ofstream *pdb = new std::ofstream("backbone.pdb");
+	OBConversion convert;
+	convert.SetOutFormat("pdb");
+	convert.Write(&newmol,pdb);
+	((ofstream *)pdb)->close();
+	
+	
+	dvec3 lastbond = dvec3(0,-1,0);
+	dvec3 lastnorm = dvec3(0,0,1);
+	dvec3 last_v = dvec3(0,0,0);
+	
+
+//	dvec3 lastnorm = dvec3(0,1,0); //up 
+//	OBMolAtomIter second = ait;
+//	cout << to_string(get_vec3(++/second)) << endl;
+//	cout << to_string(lastnorm) << endl;
+
+	vector<dvec3> spherical;
+	//spherical.push_back(dvec3(0,0,0));
+	for(ait = OBMolAtomIter(newmol), ait++; ait; ++ait) {
+		dvec3 new_v = get_vec3(ait);
+		dvec3 newbond = new_v - last_v;
+		dvec3 newnorm = cross(lastbond,newbond);
+//		dvec3 newnorm = triangleNormal(lastbond,dvec3(0,0,0),newbond);
+		double theta = acos(normalizeDot(newbond,lastbond));
+		double psi = orientedAngle(normalize(newnorm),normalize(lastnorm),normalize(lastbond));
+//		double psi = acos(normalizeDot(lastnorm,newnorm));
+		double r = glm::length(newbond);
+		spherical.push_back(dvec3(r,psi,theta));
+		lastbond = newbond;
+		lastnorm = newnorm;
+		last_v = new_v;
+	}
+//	cout << to_string(mk_transform(0,0,0)) << endl;
+	dmat4 tform; //identity
+//	vector<dmat4> transforms;
+	vector<dvec3>::iterator it;
+	int c = 0;
+//	last_v = dvec3(0,0,0);
+	for(ait = OBMolAtomIter(newmol),ait++,it = spherical.begin();it != spherical.end();++it,++ait) {
+//		tform *= mk_transform(*it);
+		tform = tform * mk_transform(*it);
+		cout << to_string(tform) << endl;
+		dvec3 pos = dvec3(tform * dvec4(0,0,0,1));
+//		pos += last_v;
+		ait->SetVector(pos.x,pos.y,pos.z);
+		c++;
+//		last_v = pos;
+	}
+	cout << c << endl;
+	newmol.EndModify(true);
+
+	pdb = new std::ofstream("generated.pdb");
+	convert.Write(&newmol,pdb);
+	((ofstream *)pdb)->close();
+}

@@ -1,0 +1,28 @@
+data_PHE
+#
+_pdbx_nmr_ensemble.conformers_submitted_total_number	2
+loop_
+_atom_site.label_comp_id
+_atom_site.id
+_atom_site.type_symbol
+_atom_site.Cartn_x
+_atom_site.Cartn_y
+_atom_site.Cartn_z
+_atom_site.pdbx_PDB_model_num
+PHE CA   C 0 0 0 1
+PHE CB   C -0.25 -1.235 -0.866 1
+PHE CG   C -0.161 -0.856 -2.32 1
+PHE CD1  C 1.051 -0.924 -2.98 1
+PHE CD2  C -1.294 -0.444 -2.998 1
+PHE CE1  C 1.132 -0.576 -4.315 1
+PHE CE2  C -1.211 -0.093 -4.332 1
+PHE CZ   C 0.002 -0.161 -4.991 1
+PHE HA   H -0.75 0.758 -0.224 1
+PHE HB2  H 0.5 -1.994 -0.641 1
+PHE HB3  H -1.242 -1.633 -0.654 1
+PHE HD1  H 1.935 -1.25 -2.452 1
+PHE HD2  H -2.242 -0.392 -2.483 1
+PHE HE1  H 2.08 -0.629 -4.83 1
+PHE HE2  H -2.096 0.233 -4.86 1
+PHE HZ   H 0.065 0.112 -6.034 1
+PHE HZ   H 0.065 0.112 -6.034 1

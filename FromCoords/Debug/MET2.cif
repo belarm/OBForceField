@@ -1,0 +1,25 @@
+data_MET
+#
+_pdbx_nmr_ensemble.conformers_submitted_total_number	2
+loop_
+_atom_site.label_comp_id
+_atom_site.id
+_atom_site.type_symbol
+_atom_site.Cartn_x
+_atom_site.Cartn_y
+_atom_site.Cartn_z
+_atom_site.pdbx_PDB_model_num
+MET CA   C 0 0 0 1
+MET CB   C 0.726 -0.644 1.182 1
+MET CG   C 0.119 -0.14 2.491 1
+MET SD   S 0.981 -0.904 3.892 1
+MET CE   C 0.078 -0.146 5.27 1
+MET HA   H 0.105 1.083 0.056 1
+MET HB2  H 1.783 -0.38 1.146 1
+MET HB3  H 0.621 -1.728 1.126 1
+MET HG2  H -0.938 -0.405 2.527 1
+MET HG3  H 0.224 0.943 2.547 1
+MET HE1  H 0.482 -0.509 6.214 1
+MET HE2  H 0.185 0.937 5.222 1
+MET HE3  H -0.977 -0.411 5.202 1
+MET HE3  H -0.977 -0.411 5.202 1

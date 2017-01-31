@@ -1,0 +1,19 @@
+data_SEC
+#
+_pdbx_nmr_ensemble.conformers_submitted_total_number	2
+loop_
+_atom_site.label_comp_id
+_atom_site.id
+_atom_site.type_symbol
+_atom_site.Cartn_x
+_atom_site.Cartn_y
+_atom_site.Cartn_z
+_atom_site.pdbx_PDB_model_num
+SEC CA   C 0 0 0 1
+SEC CB   C 0.98 -0.662 0.97 1
+SEC SE   SE 2.817 -0.309 0.385 1
+SEC HA   H 0.206 -0.342 -1.014 1
+SEC HB2  H 0.833 -0.254 1.97 1
+SEC HB3  H 0.804 -1.738 0.987 1
+SEC HE   H 3.629 -1.056 1.489 1
+SEC HE   H 3.629 -1.056 1.489 1

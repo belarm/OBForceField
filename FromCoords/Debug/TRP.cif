@@ -1,0 +1,32 @@
+data_TRP
+#
+_pdbx_nmr_ensemble.conformers_submitted_total_number	2
+loop_
+_atom_site.label_comp_id
+_atom_site.id
+_atom_site.type_symbol
+_atom_site.Cartn_x
+_atom_site.Cartn_y
+_atom_site.Cartn_z
+_atom_site.pdbx_PDB_model_num
+TRP CA   C 0 0 0 1
+TRP CB   C 0.176 -1.285 -0.809 1
+TRP CG   C 0.658 -0.943 -2.195 1
+TRP CD1  C 1.936 -0.835 -2.592 1
+TRP CD2  C -0.178 -0.673 -3.366 1
+TRP NE1  N 1.986 -0.512 -3.921 1
+TRP CE2  C 0.709 -0.403 -4.424 1
+TRP CE3  C -1.556 -0.627 -3.585 1
+TRP CZ2  C 0.198 -0.103 -5.682 1
+TRP CZ3  C -2.036 -0.331 -4.829 1
+TRP CH2  C -1.165 -0.069 -5.877 1
+TRP HA   H -0.732 0.641 -0.491 1
+TRP HB2  H 0.908 -1.926 -0.318 1
+TRP HB3  H -0.778 -1.807 -0.875 1
+TRP HD1  H 2.797 -0.981 -1.958 1
+TRP HE1  H 2.799 -0.381 -4.432 1
+TRP HE3  H -2.24 -0.83 -2.774 1
+TRP HZ2  H 0.868 0.104 -6.504 1
+TRP HZ3  H -3.102 -0.301 -4.999 1
+TRP HH2  H -1.559 0.165 -6.855 1
+TRP HH2  H -1.559 0.165 -6.855 1

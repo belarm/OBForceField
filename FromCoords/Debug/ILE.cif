@@ -1,0 +1,27 @@
+data_ILE
+#
+_pdbx_nmr_ensemble.conformers_submitted_total_number	2
+loop_
+_atom_site.label_comp_id
+_atom_site.id
+_atom_site.type_symbol
+_atom_site.Cartn_x
+_atom_site.Cartn_y
+_atom_site.Cartn_z
+_atom_site.pdbx_PDB_model_num
+ILE CA   C 0 0 0 1
+ILE CB   C 0.627 -0.738 1.183 1
+ILE CG1  C 0.066 -0.178 2.491 1
+ILE CG2  C 2.145 -0.546 1.157 1
+ILE CD1  C 0.693 -0.916 3.674 1
+ILE HA   H 0.234 1.063 0.07 1
+ILE HB   H 0.395 -1.8 1.113 1
+ILE HG12 H -1.015 -0.315 2.51 1
+ILE HG13 H 0.299 0.884 2.561 1
+ILE HG21 H 2.378 0.515 1.226 1
+ILE HG22 H 2.592 -1.073 2 1
+ILE HG23 H 2.546 -0.946 0.226 1
+ILE HD11 H 0.294 -0.518 4.606 1
+ILE HD12 H 0.461 -1.979 3.604 1
+ILE HD13 H 1.774 -0.78 3.655 1
+ILE HD13 H 1.774 -0.78 3.655 1
